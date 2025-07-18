@@ -9,7 +9,7 @@ public class TestRoutesController {
 
     @GetMapping("/public")
     public ResponseEntity<String> publicRoute() {
-        return ResponseEntity.ok( "public route access!");
+        return ResponseEntity.ok("public route access!");
     }
 
     @GetMapping("/private")
