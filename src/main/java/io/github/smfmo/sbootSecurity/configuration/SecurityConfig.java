@@ -1,5 +1,6 @@
 package io.github.smfmo.sbootSecurity.configuration;
 
+import io.github.smfmo.sbootSecurity.security.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -19,7 +20,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   CustomAuthenticationProvider provider) throws Exception {
          return http
                  .csrf(AbstractHttpConfigurer::disable)
                  .authorizeHttpRequests(auth -> auth
@@ -28,6 +30,7 @@ public class SecurityConfig {
                  )
                  .httpBasic(Customizer.withDefaults())
                  .formLogin(Customizer.withDefaults())
+                 .authenticationProvider(provider)
                  .build();
     }
 
