@@ -18,8 +18,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         var username = authentication.getName();
         var password = (String) authentication.getCredentials();
 
-        String usernameMaster = "master";
-        String passwordMaster = "master1";
+        String usernameMaster = "admin";
+        String passwordMaster = "admin";
 
         if (username.equals(usernameMaster) && password.equals(passwordMaster)) {
             return new UsernamePasswordAuthenticationToken(
