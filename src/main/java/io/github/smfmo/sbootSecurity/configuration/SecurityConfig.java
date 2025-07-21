@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -21,7 +22,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   CustomAuthenticationProvider provider) throws Exception {
+                                                   CustomAuthenticationProvider provider,
+                                                   CustomFilter customFilter) throws Exception {
          return http
                  .csrf(AbstractHttpConfigurer::disable)
                  .authorizeHttpRequests(auth -> auth
@@ -31,6 +33,7 @@ public class SecurityConfig {
                  .httpBasic(Customizer.withDefaults())
                  .formLogin(Customizer.withDefaults())
                  .authenticationProvider(provider)
+                 .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
                  .build();
     }
 

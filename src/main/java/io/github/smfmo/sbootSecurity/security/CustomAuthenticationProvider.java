@@ -1,6 +1,5 @@
 package io.github.smfmo.sbootSecurity.security;
 
-import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
