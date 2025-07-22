@@ -20,4 +20,8 @@ public class UsuarioGrupo {
     @JoinColumn(name = "group_id")
     private Grupo grupo;
 
+    public UsuarioGrupo(Usuario usuario, Grupo grupo) {
+        this.usuario = usuario;
+        this.grupo = grupo;
+    }
 }
