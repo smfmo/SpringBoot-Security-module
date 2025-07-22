@@ -18,11 +18,11 @@ import java.util.List;
 public class CustomFilter extends OncePerRequestFilter {
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest requisicao,
+                                    HttpServletResponse resposta,
+                                    FilterChain cadeiaDeFiltro) throws ServletException, IOException {
 
-        String secretHeader = request.getHeader("X-secret");
+        String secretHeader = requisicao.getHeader("X-secret");
 
         if (secretHeader != null){
             if (secretHeader.equals("secr3t")) {
@@ -33,6 +33,6 @@ public class CustomFilter extends OncePerRequestFilter {
                 context.setAuthentication(auth);
             }
         }
-        filterChain.doFilter(request, response);
+        cadeiaDeFiltro.doFilter(requisicao, resposta);
     }
 }
