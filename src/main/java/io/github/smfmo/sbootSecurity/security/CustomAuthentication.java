@@ -49,7 +49,7 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        throw new IllegalArgumentException("Não é necessária a chamada do método");
+        throw new IllegalArgumentException("Is method is not necessary");
     }
 
     @Override

@@ -2,6 +2,8 @@ package io.github.smfmo.sbootSecurity.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -19,4 +21,7 @@ public class Usuario {
     private String name;
 
     private String email;
+
+    @Transient
+    private List<String> permissions;
 }

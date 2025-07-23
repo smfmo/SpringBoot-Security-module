@@ -1,6 +1,7 @@
 package io.github.smfmo.sbootSecurity.configuration;
 
-import io.github.smfmo.sbootSecurity.security.CustomAuthenticationProvider;
+import io.github.smfmo.sbootSecurity.security.CustomAuhtenticationProvider;
+import io.github.smfmo.sbootSecurity.security.MasterAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -25,7 +26,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   CustomAuthenticationProvider provider,
+                                                   MasterAuthenticationProvider provider,
+                                                   CustomAuhtenticationProvider customAuhtenticationProvider,
                                                    CustomFilter customFilter) throws Exception {
          return http
                  .csrf(AbstractHttpConfigurer::disable)
@@ -36,6 +38,7 @@ public class SecurityConfig {
                  .httpBasic(Customizer.withDefaults())
                  .formLogin(Customizer.withDefaults())
                  .authenticationProvider(provider)
+                 .authenticationProvider(customAuhtenticationProvider)
                  .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
                  .build();
     }

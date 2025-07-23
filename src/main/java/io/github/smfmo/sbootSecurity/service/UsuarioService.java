@@ -1,6 +1,5 @@
 package io.github.smfmo.sbootSecurity.service;
 
-import io.github.smfmo.sbootSecurity.api.dto.UsuarioDto;
 import io.github.smfmo.sbootSecurity.domain.entity.Grupo;
 import io.github.smfmo.sbootSecurity.domain.entity.Usuario;
 import io.github.smfmo.sbootSecurity.domain.entity.UsuarioGrupo;
@@ -11,11 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +23,17 @@ public class UsuarioService {
     private final GrupoRepository grupoRepository;
     private final UsuarioGrupoRepository usuarioGrupoRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public Usuario findByUsername(String username) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByUsername(username);
+        if (usuarioOptional.isEmpty()) {
+            return null;
+        }
+        Usuario usuario = usuarioOptional.get();
+        List<String> permissions = usuarioGrupoRepository.findPermissoesByUsuario(usuario);
+        usuario.setPermissions(permissions);
+        return usuario;
+    }
 
     @Transactional
     public void save(Usuario usuario, List<String> grupos) {
