@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class MasterAuthenticationProvider implements AuthenticationProvider {
@@ -22,8 +23,12 @@ public class MasterAuthenticationProvider implements AuthenticationProvider {
         String passwordMaster = "admin";
 
         if (username.equals(usernameMaster) && password.equals(passwordMaster)) {
-            return new UsernamePasswordAuthenticationToken(
-                    username, null,List.of(new SimpleGrantedAuthority("ADMIN")));
+            UUID uuid = UUID.fromString(UUID.randomUUID().toString());
+
+            IdentificacaoUsuario identificacaoUsuario = new IdentificacaoUsuario(
+                    uuid, "admin", usernameMaster, List.of("ADMIN"));
+
+            return new CustomAuthentication(identificacaoUsuario);
         }
 
         return null;
